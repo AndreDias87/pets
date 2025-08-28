@@ -8,3 +8,17 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+# Logs and cache
+*.log
+
+# Node / Frontend
+/node_modules/
+/yarn-error.log
+/pnpm-lock.yaml
+/package-lock.json
+
+# Docker
+/.dockerignore
+/.idea/
+/.vscode/

@@ -1,51 +1,34 @@
-# Symfony Docker
+## Running Composer inside Docker
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+This project uses [Symfony Docker](https://github.com/dunglas/symfony-docker) as the base setup.
+Composer is executed inside the PHP container so you don’t need PHP or Composer installed on your host machine.
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+To install or update dependencies, run:
 
-## Getting Started
+```bash
+docker compose run --rm php composer install
+```
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+### Git safe.directory warning
 
-## Features
+When running Composer inside Docker, you may see this warning:
 
-* Production, development and CI ready
-* Just 1 service by default
-* Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://github.com/dunglas/frankenphp/blob/main/docs/worker.md) (automatically enabled in prod mode)
-* [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-* Automatic HTTPS (in dev and prod)
-* HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-* Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-* [Vulcain](https://vulcain.rocks) support
-* Native [XDebug](docs/xdebug.md) integration
-* Super-readable configuration
+```bash
+fatal: detected dubious ownership in repository at '/app'
+```
 
-**Enjoy!**
+This happens because the code is mounted into the container at `/app` with a different user ID.
 
-## Docs
+To fix it, mark `/app` as a safe directory inside the container:
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
+```bash
+docker compose run --rm php git config --global --add safe.directory /app
+```
 
-## License
+Alternatively, you can set the environment variables UID and GID before building the containers to match your host user:
 
-Symfony Docker is available under the MIT License.
-
-## Credits
-
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+```bash
+export UID
+export GID
+docker compose build --no-cache
+```
