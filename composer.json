@@ -21,6 +21,8 @@
         "symfony/monolog-bundle": "^3.0",
         "symfony/runtime": "7.3.*",
         "symfony/twig-bundle": "7.3.*",
+        "symfony/ux-live-component": "^2.30",
+        "symfony/ux-twig-component": "^2.30",
         "symfony/yaml": "7.3.*",
         "symfonycasts/tailwind-bundle": "^0.11.1",
         "twig/extra-bundle": "^2.12|^3.0",
