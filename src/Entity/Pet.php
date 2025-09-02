@@ -29,6 +29,12 @@ class Pet
     #[ORM\Column(nullable: true, enumType: SexEnum::class)]
     private ?SexEnum $sex = null;
 
+    #[ORM\Column]
+    private bool $birthdayIsKnown = false;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $customBreedName = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,30 @@ class Pet
     public function setSex(?SexEnum $sex): static
     {
         $this->sex = $sex;
+
+        return $this;
+    }
+
+    public function isBirthdayIsKnown(): ?bool
+    {
+        return $this->birthdayIsKnown;
+    }
+
+    public function setBirthdayIsKnown(bool $birthdayIsKnown): static
+    {
+        $this->birthdayIsKnown = $birthdayIsKnown;
+
+        return $this;
+    }
+
+    public function getCustomBreedName(): ?string
+    {
+        return $this->customBreedName;
+    }
+
+    public function setCustomBreedName(?string $customBreedName): static
+    {
+        $this->customBreedName = $customBreedName;
 
         return $this;
     }
