@@ -3,8 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\PetRepository;
+use DateInterval;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Expression;
 
 #[ORM\Entity(repositoryClass: PetRepository::class)]
 class Pet
@@ -15,25 +20,47 @@ class Pet
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[NotBlank]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $birthdate = null;
+//    #[Expression(
+//        "this.isBirthdayIsKnown() ? this.getBirthdate() != null : true",
+//        message: "This value should not be blank."
+//    )]
+    #[NotBlank(groups: ['birthday_known'])]
+    private ?DateTime $birthdate = null;
 
     #[ORM\ManyToOne]
+    #[NotBlank]
     private ?Type $type = null;
 
     #[ORM\ManyToOne]
+    #[NotBlank]
     private ?Breed $breed = null;
 
     #[ORM\Column(nullable: true, enumType: SexEnum::class)]
+    #[NotBlank]
     private ?SexEnum $sex = null;
 
     #[ORM\Column]
-    private bool $birthdayIsKnown = false;
+    #[NotNull]
+    private ?bool $birthdayIsKnown = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $customBreedName = null;
+
+    #[Expression(
+        expression: 'this.isBirthdayIsKnown() or (this.getApproximateAge() !== null)',
+        message: 'Approximate age is required if the birthday is not known.'
+    )]
+    private ?int $approximateAge = null;
+
+    #[Expression(
+        expression: "!this.getBreed() or this.getBreed().getName() != 'Unknown' or (this.getBreedDetails() !== null)",
+        message: 'Please choose one.'
+    )]
+    private ?BreedDetailsEnum $breedDetails = null;
 
     public function getId(): ?int
     {
@@ -52,12 +79,12 @@ class Pet
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTime
+    public function getBirthdate(): ?DateTime
     {
         return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTime $birthdate): static
+    public function setBirthdate(?DateTime $birthdate): static
     {
         $this->birthdate = $birthdate;
 
@@ -105,7 +132,7 @@ class Pet
         return $this->birthdayIsKnown;
     }
 
-    public function setBirthdayIsKnown(bool $birthdayIsKnown): static
+    public function setBirthdayIsKnown(?bool $birthdayIsKnown): static
     {
         $this->birthdayIsKnown = $birthdayIsKnown;
 
@@ -122,5 +149,32 @@ class Pet
         $this->customBreedName = $customBreedName;
 
         return $this;
+    }
+
+    public function getApproximateAge(): ?int
+    {
+        return $this->approximateAge;
+    }
+
+    public function setApproximateAge(?int $age): static
+    {
+        $this->approximateAge = $age;
+
+        // If age is set, calculate birthdate automatically
+        if ($age !== null) {
+            $this->birthdate = (new DateTime())->sub(new DateInterval('P'.$age.'Y'));;
+        }
+
+        return $this;
+    }
+
+    public function getBreedDetails(): ?BreedDetailsEnum
+    {
+        return $this->breedDetails;
+    }
+
+    public function setBreedDetails(?BreedDetailsEnum $breedDetails): void
+    {
+        $this->breedDetails = $breedDetails;
     }
 }

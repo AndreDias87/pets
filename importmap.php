@@ -25,4 +25,66 @@ return [
     '@symfony/ux-live-component' => [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
     ],
+    'js-confetti' => [
+        'version' => '0.12.0-add-confetti-at-position-test',
+    ],
+    'tom-select' => [
+        'version' => '2.4.3',
+    ],
+    '@orchidjs/sifter' => [
+        'version' => '1.1.0',
+    ],
+    '@orchidjs/unicode-variants' => [
+        'version' => '1.1.2',
+    ],
+    'tom-select/dist/css/tom-select.default.min.css' => [
+        'version' => '2.4.3',
+        'type' => 'css',
+    ],
+    'tom-select/dist/css/tom-select.default.css' => [
+        'version' => '2.4.3',
+        'type' => 'css',
+    ],
+    'tom-select/dist/css/tom-select.bootstrap4.css' => [
+        'version' => '2.4.3',
+        'type' => 'css',
+    ],
+    'tom-select/dist/css/tom-select.bootstrap5.css' => [
+        'version' => '2.4.3',
+        'type' => 'css',
+    ],
+    '@hotwired/turbo' => [
+        'version' => '7.3.0',
+    ],
+    'debounce' => [
+        'version' => '2.2.0',
+    ],
+    'flowbite' => [
+        'version' => '3.1.2',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'flowbite-datepicker' => [
+        'version' => '1.3.2',
+    ],
+    'flowbite/dist/flowbite.min.css' => [
+        'version' => '3.1.2',
+        'type' => 'css',
+    ],
+    'flowbite/plugin' => [
+        'version' => '3.1.2',
+    ],
+    'mini-svg-data-uri' => [
+        'version' => '1.4.4',
+    ],
+    'tailwindcss/plugin' => [
+        'version' => '4.0.4',
+    ],
+    'tailwindcss/defaultTheme' => [
+        'version' => '4.0.4',
+    ],
+    'tailwindcss/colors' => [
+        'version' => '4.0.4',
+    ],
 ];

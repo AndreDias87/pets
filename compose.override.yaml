@@ -12,6 +12,7 @@ services:
       # If you develop on Mac or Windows you can remove the vendor/ directory
       #  from the bind-mount for better performance by enabling the next line:
       #- /app/vendor
+      - ./var/tailwind:/app/var/tailwind
     environment:
       COMPOSER_CACHE_DIR: /app/var/composer-cache
       FRANKENPHP_WORKER_CONFIG: watch

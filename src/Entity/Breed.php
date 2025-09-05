@@ -17,7 +17,7 @@ class Breed
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Type $type = null;
 
     #[ORM\Column]

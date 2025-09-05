@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pet index{% endblock %}
+
+{% block body %}
+    <h1>Pet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Birthdate</th>
+                <th>Sex</th>
+                <th>BirthdayIsKnown</th>
+                <th>CustomBreedName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pet in pets %}
+            <tr>
+                <td>{{ pet.id }}</td>
+                <td>{{ pet.name }}</td>
+                <td>{{ pet.birthdate ? pet.birthdate|date('Y-m-d') : '' }}</td>
+                <td>{{ pet.sex ? pet.sex.value : 'uwknown' }}</td>
+                <td>{{ pet.birthdayIsKnown ? 'Yes' : 'No' }}</td>
+                <td>{{ pet.customBreedName }}</td>
+                <td>
+                    <a href="{{ path('app_pet_show', {'id': pet.id}) }}">show</a>
+                    <a href="{{ path('app_pet_edit', {'id': pet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_pet_new') }}">Create new</a>
+{% endblock %}
