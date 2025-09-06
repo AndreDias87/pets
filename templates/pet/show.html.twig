@@ -8,7 +8,7 @@
             <div class="rounded-full text-white w-20 h-20 flex items-center justify-center bg-blue-950 p-3">
                 <twig:ux:icon name="mdi:paw" />
             </div>
-            <div class="text-2xl ml-8 text-blue-950">Details about {{ pet.name }}</div>
+            <div class="text-2xl ml-8 text-blue-950">Details about {{ pet.name|capitalize }}</div>
         </div>
         <div class="flex flex-col text-blue-950 gap-2 font-medium">
             <div class="flex">
@@ -21,18 +21,20 @@
             </div>
             <div class="flex">
                 <div class="w-1/2">Breed</div>
-                <div class="w-1/2">{{ pet.breed.name }}</div>
+                {% if pet.breed.name is same as ('Unknown') and pet.customBreedName %}
+                    <div class="w-1/2">{{ pet.customBreedName }}</div>
+                {% else %}
+                    <div class="w-1/2">{{ pet.breed.name }} {{ pet.breed.isDangerous ? ' ⚠️' : '' }}</div>
+                {% endif %}
             </div>
             <div class="flex">
                 <div class="w-1/2">Sex</div>
                 <div class="w-1/2">{{ pet.sex.value|capitalize }}</div>
             </div>
             <div class="flex">
-                <div class="w-1/2">Age</div>
-                <div class="w-1/2">8</div>
+                <div class="w-1/2">{{ pet.birthdayIsKnown ? 'Pet Birthday' : 'Approximate Age' }}</div>
+                <div class="w-1/2">{{ pet.birthdayIsKnown ? pet.birthdate|format_date : pet.age ~ ' year'}}{{ pet.age > 1 ? 's' : ''}} </div>
             </div>
         </div>
     </div>
-
-    <a href="{{ path('app_pet_new') }}">Register another pet</a>
 {% endblock %}

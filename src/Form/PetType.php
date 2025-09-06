@@ -89,6 +89,7 @@ class PetType extends AbstractType
             ->addDependent('customBreedName', ['breedDetails'], function(DependentField $field, ?BreedDetailsEnum $breed) {
                 if ($breed === BreedDetailsEnum::MIX) {
                     $field->add(null, [
+                        'label' => 'Enter breed mix',
                         'priority' => 70,
                     ]);
                 }

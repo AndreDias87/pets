@@ -24,10 +24,6 @@ class Pet
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-//    #[Expression(
-//        "this.isBirthdayIsKnown() ? this.getBirthdate() != null : true",
-//        message: "This value should not be blank."
-//    )]
     #[NotBlank(groups: ['birthday_known'])]
     private ?DateTime $birthdate = null;
 
@@ -48,6 +44,10 @@ class Pet
     private ?bool $birthdayIsKnown = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+        #[Expression(
+        "this.getBreedDetails() !== constant('App\\\\Entity\\\\BreedDetailsEnum::MIX') or (this.getCustomBreedName() !== null)",
+        message: "This value should not be blank."
+    )]
     private ?string $customBreedName = null;
 
     #[Expression(
@@ -176,5 +176,17 @@ class Pet
     public function setBreedDetails(?BreedDetailsEnum $breedDetails): void
     {
         $this->breedDetails = $breedDetails;
+    }
+
+    public function getAge(): ?int
+    {
+        if ($this->birthdate === null) {
+            return null;
+        }
+
+        $today = new DateTime('today');
+        $diff = $today->diff($this->birthdate);
+
+        return $diff->y;
     }
 }
