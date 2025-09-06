@@ -33,7 +33,9 @@
             </div>
             <div class="flex">
                 <div class="w-1/2">{{ pet.birthdayIsKnown ? 'Pet Birthday' : 'Approximate Age' }}</div>
-                <div class="w-1/2">{{ pet.birthdayIsKnown ? pet.birthdate|format_date : pet.age ~ ' year'}}{{ pet.age > 1 ? 's' : ''}} </div>
+                <div class="w-1/2">
+                    {{ pet.birthdayIsKnown ? pet.birthdate|format_date : pet.age ~ ' year'}}{{ pet.birthdayIsKnown or pet.age == 1 ? '' : 's'}}
+                </div>
             </div>
         </div>
     </div>
