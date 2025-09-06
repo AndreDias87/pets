@@ -82,7 +82,7 @@ final class PetController extends AbstractController
         return $this->redirectToRoute('app_pet_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    private function createPetForm(Pet $pet = null): FormInterface
+    private function createPetForm(?Pet $pet = null): FormInterface
     {
         $pet = $pet ?? new Pet();
 
