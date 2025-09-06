@@ -39,6 +39,9 @@ class PetType extends AbstractType
             ])
             ->add('name', null, [
                 'label' => 'What is your pet\'s name?',
+                'attr' => [
+                    'placeholder' => 'Enter a name',
+                ],
                 'priority' => 90,
             ])
             ->addDependent('breed', ['type'], function(DependentField $field, ?Type $type) {

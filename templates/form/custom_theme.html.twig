@@ -1,6 +1,6 @@
 {% block custom_choice_widget %}
-    <div class="my-custom-choice flex flex-row">
-        <div role="radiogroup" class="flex border border-blue-800 rounded-sm overflow-hidden divide-x divide-blue-800 h-10">
+    <div class="my-custom-choice flex flex-row h-12.5">
+        <div role="radiogroup" class="flex border border-blue-900 rounded-sm overflow-hidden divide-x divide-blue-900">
             {% for child in form %}
                 <div class="flex-1">
                     <input
@@ -13,12 +13,12 @@
                     />
                     <label
                         for="{{ child.vars.id }}"
-                        class="flex h-10 w-full items-center justify-center cursor-pointer px-4
+                        class="flex h-12.5 w-full items-center justify-center cursor-pointer px-8 py-3
                        transition-colors duration-200
-                       text-blue-800
-                       hover:bg-blue-800 hover:text-white
-                       peer-checked:bg-blue-800 peer-checked:text-white
-                       peer-focus-visible:ring-2 peer-focus-visible:ring-blue-800"
+                       text-blue-900 text-sm font-medium
+                       hover:bg-blue-900 hover:text-white
+                       peer-checked:bg-blue-900 peer-checked:text-white
+                       peer-focus-visible:ring-2 peer-focus-visible:ring-blue-900"
                     >
                         {{ child.vars.label }}
                     </label>
@@ -35,3 +35,15 @@
 {% block custom_entity_widget %}
     {{ block('custom_choice_widget') }}
 {% endblock %}
+
+{% block class_label %}
+    block text-base font-light font-stretch-normal text-gray-900 dark:text-white
+{% endblock %}
+
+{% block class_label_error -%}
+    block text-base font-light font-stretch-normal text-red-600 dark:text-red-500
+{%- endblock class_label_error %}
+
+{% block class_input_text -%}
+    text-gray-900 bg-white rounded-sm h-12.5 text-base block w-full p-2.5 border border-gray-300 focus:z-10 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500
+{%- endblock class_input_text %}

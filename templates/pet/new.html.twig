@@ -3,7 +3,17 @@
 {% block title %}New Pet{% endblock %}
 
 {% block body %}
-    <div class="w-3xl bg-white px-6 py-8 shadow-sm rounded-lg">
+    <div class="w-full max-w-[730px] bg-white px-6 py-10 shadow-sm rounded-lg">
+        <div class="flex">
+            {% for i in 0..6 %}
+                <div class="grow flex p-6 place-content-center
+                    text-sm {{ i <= 1 ? 'text-blue-900' : 'text-gray-500' }}
+                    rotate-90 {{ i is even ? 'mb-5' : 'mt-5' }}"
+                >
+                        <twig:ux:icon name="mdi:paw" />
+                </div>
+            {% endfor %}
+        </div>
         <h1 class="mb-4 font-bold text-3xl text-blue-900">Tell us about your pet</h1>
         {{ include('pet/_form.html.twig') }}
     </div>

@@ -34,7 +34,9 @@ final class PetController extends AbstractController
             $entityManager->persist($pet);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_pet_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_pet_show', [
+                'id' => $pet->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('pet/new.html.twig', [
