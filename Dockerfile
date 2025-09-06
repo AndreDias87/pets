@@ -24,6 +24,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	git \
 	&& rm -rf /var/lib/apt/lists/*
 
+# Mark /app as safe for git
+RUN git config --global --add safe.directory /app
+
 RUN set -eux; \
 	install-php-extensions \
 		@composer \

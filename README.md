@@ -3,32 +3,15 @@
 This project uses [Symfony Docker](https://github.com/dunglas/symfony-docker) as the base setup.
 Composer is executed inside the PHP container so you don’t need PHP or Composer installed on your host machine.
 
-To install or update dependencies, run:
+### Getting Started
 
-```bash
-docker compose run --rm php composer install
-```
+Follow the instructions to install Docker Compose if you have not already done it: https://docs.docker.com/compose/install/
+Run `docker compose build --pull --no-cache` to build fresh images
+Run `docker compose up --wait` to set up and start a fresh Symfony project
 
-### Git safe.directory warning
+Run `docker compose run --rm php composer install` to install dependencies
+Run `docker compose run --rm php bin/console tailwind:build` to build tailwind
 
-When running Composer inside Docker, you may see this warning:
+Open https://localhost/pet/new to register a new pet
+Run `docker compose down --remove-orphans` to stop the Docker containers.
 
-```bash
-fatal: detected dubious ownership in repository at '/app'
-```
-
-This happens because the code is mounted into the container at `/app` with a different user ID.
-
-To fix it, mark `/app` as a safe directory inside the container:
-
-```bash
-docker compose run --rm php git config --global --add safe.directory /app
-```
-
-Alternatively, you can set the environment variables UID and GID before building the containers to match your host user:
-
-```bash
-export UID
-export GID
-docker compose build --no-cache
-```
