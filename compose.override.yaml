@@ -1,6 +1,9 @@
 # Development environment override
 services:
   php:
+    depends_on:
+      database:
+        condition: service_healthy
     build:
       context: .
       target: frankenphp_dev
