@@ -4,7 +4,7 @@ base_path: .
 base_url: 'https://api.crowdin.com'
 preserve_hierarchy: 1
 files:
-  - source: /translations/**/*.en.xliff
-  - translation: /%original_path%/%file_name%.%two_letters_code%.xliff
   - source: /translations/*.en.xliff
-    translation: /translations/%file_name%.%two_letters_code%.xliff
+    translation: /%original_path%/%file_name%.%two_letters_code%.xliff
+    translation_replace:
+      .en. : .
