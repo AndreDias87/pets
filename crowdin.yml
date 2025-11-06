@@ -7,4 +7,4 @@ files:
   - source: /translations/*.en.xliff
     translation: /%original_path%/%file_name%.%two_letters_code%.xliff
     translation_replace:
-      .en. : .
+      .en.: .
