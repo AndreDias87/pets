@@ -1,5 +1,7 @@
 {% form_theme form 'form/custom_theme.html.twig' %}
 
+<h1>{{ 'test' | trans}}</h1>
+
 <div {{ attributes }}>
     {{ form_start(form) }}
         {{ form_row(form.type) }}
